@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Attendance | Management</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+<body data-page="management">
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="logo-badge" aria-hidden="true">KCAS</div>
+      <div class="brand-text">
+        <div class="app-name">SMART ATTENDANCE</div>
+        <div class="college-name">KALAIMAGAL COLLEGE OF ARTS AND SCIENCE</div>
+        <div class="college-meta">Semmanar Koil • Phone: 9791-22519</div>
+      </div>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" data-nav="home">Home</a>
+    <a href="login.html" data-nav="login">Login</a>
+    <a href="history.html" data-nav="history">History</a>
+    <a href="management.html" data-nav="management">Management</a>
+  </nav>
+</header>
+
+  <main class="page-container">
+    <section class="info-card">
+      <div class="page-heading">
+        <div>
+          <h2>Management</h2>
+          <p class="muted">View all registered users, search instantly, and open each user's attendance history.</p>
+        </div>
+      </div>
+
+      <label class="search-box">
+        Search by username or User ID
+        <input type="search" id="userSearch" placeholder="Search by username or User ID" />
+      </label>
+
+      <div class="table-responsive">
+        <table class="data-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Username</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Total Days</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Attendance %</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="info-card">
+      <div class="page-heading">
+        <div>
+          <h3>User Details & History</h3>
+          <p class="muted">Click a User ID above to see detailed attendance information.</p>
+        </div>
+      </div>
+      <div id="selectedUserSummary" class="user-summary-grid"></div>
+      <div class="table-responsive">
+        <table class="data-table" id="selectedUserHistoryTable">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="selectedUserHistoryBody"></tbody>
+        </table>
+      </div>
+      <div id="selectedUserEmpty" class="empty-state hidden">Select a user to view history.</div>
+    </section>
+  </main>
+</body>
+</html>

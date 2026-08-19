@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Attendance | History</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+<body data-page="history">
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="logo-badge" aria-hidden="true">KCAS</div>
+      <div class="brand-text">
+        <div class="app-name">SMART ATTENDANCE</div>
+        <div class="college-name">KALAIMAGAL COLLEGE OF ARTS AND SCIENCE</div>
+        <div class="college-meta">Semmanar Koil • Phone: 9791-22519</div>
+      </div>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" data-nav="home">Home</a>
+    <a href="login.html" data-nav="login">Login</a>
+    <a href="history.html" data-nav="history">History</a>
+    <a href="management.html" data-nav="management">Management</a>
+  </nav>
+</header>
+
+  <main class="page-container">
+    <section class="info-card">
+      <div class="page-heading">
+        <div>
+          <h2>Attendance History</h2>
+          <p class="muted">Review attendance records and status by date.</p>
+        </div>
+      </div>
+      <div class="user-summary-grid" id="historyUserSummary"></div>
+    </section>
+
+    <section class="info-card">
+      <div id="historyEmpty" class="empty-state hidden">No attendance records found.</div>
+      <div class="table-responsive">
+        <table class="data-table" id="historyTable">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

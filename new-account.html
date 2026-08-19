@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Attendance | Create New Account</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+<body data-page="new-account">
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="logo-badge" aria-hidden="true">KCAS</div>
+      <div class="brand-text">
+        <div class="app-name">SMART ATTENDANCE</div>
+        <div class="college-name">KALAIMAGAL COLLEGE OF ARTS AND SCIENCE</div>
+        <div class="college-meta">Semmanar Koil • Phone: 9791-22519</div>
+      </div>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" data-nav="home">Home</a>
+    <a href="login.html" data-nav="login">Login</a>
+    <a href="history.html" data-nav="history">History</a>
+    <a href="management.html" data-nav="management">Management</a>
+  </nav>
+</header>
+
+  <main class="page-container">
+    <section class="auth-card wide-card">
+      <h2>Create a New Account</h2>
+      <p class="muted">Fill in all required details to create your Smart Attendance account.</p>
+      <div id="accountMessage" class="message" aria-live="polite"></div>
+
+      <form id="accountForm" class="form-grid two-columns">
+        <label>
+          Name
+          <input type="text" id="name" placeholder="Enter full name" />
+        </label>
+        <label>
+          Department
+          <select id="department">
+            <option value="">Select Department</option>
+            <option>BCA</option>
+            <option>B.Com</option>
+            <option>BBA</option>
+            <option>English</option>
+            <option>Computer Science</option>
+            <option>Commerce</option>
+            <option>Mathematics</option>
+            <option>Physics</option>
+          </select>
+        </label>
+
+        <label>
+          Age
+          <input type="number" id="age" min="1" max="120" placeholder="Enter age" />
+        </label>
+        <label>
+          Gender
+          <div class="radio-group">
+            <label><input type="radio" name="gender" value="Male" /> Male</label>
+            <label><input type="radio" name="gender" value="Female" /> Female</label>
+            <label><input type="radio" name="gender" value="Others" /> Others</label>
+          </div>
+        </label>
+
+        <label>
+          Email ID
+          <input type="email" id="email" placeholder="name@example.com" />
+        </label>
+        <label>
+          College Name
+          <input type="text" id="collegeName" value="KALAIMAGAL COLLEGE OF ARTS AND SCIENCE" readonly />
+        </label>
+
+        <label>
+          Position
+          <select id="position">
+            <option value="">Select Position</option>
+            <option>Student</option>
+            <option>Class Representative</option>
+            <option>Department Representative</option>
+            <option>Staff</option>
+          </select>
+        </label>
+        <label>
+          ID Number
+          <input type="text" id="idNumber" placeholder="Enter ID number" />
+        </label>
+
+        <label>
+          Username
+          <input type="text" id="username" autocomplete="username" placeholder="Create username" />
+        </label>
+        <label>
+          Confirm Username
+          <input type="text" id="confirmUsername" autocomplete="username" placeholder="Re-enter username" />
+        </label>
+
+        <label>
+          Password
+          <input type="password" id="password" autocomplete="new-password" placeholder="Create password" />
+        </label>
+        <label>
+          Confirm Password
+          <input type="password" id="confirmPassword" autocomplete="new-password" placeholder="Re-enter password" />
+        </label>
+
+        <div class="full-width">
+          <button type="submit" class="btn btn-primary">SUBMIT / CREATE ACCOUNT</button>
+        </div>
+      </form>
+
+      <div id="accountSuccess" class="success-panel hidden" aria-live="polite">
+        <div class="big-check">✓</div>
+        <h3>Account Created Successfully!</h3>
+        <p id="generatedUserId"></p>
+        <a href="login.html" class="btn btn-secondary">Go to Login</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

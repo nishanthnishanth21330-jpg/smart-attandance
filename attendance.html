@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Attendance | Attendance</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+<body data-page="attendance">
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="logo-badge" aria-hidden="true">KCAS</div>
+      <div class="brand-text">
+        <div class="app-name">SMART ATTENDANCE</div>
+        <div class="college-name">KALAIMAGAL COLLEGE OF ARTS AND SCIENCE</div>
+        <div class="college-meta">Semmanar Koil • Phone: 9791-22519</div>
+      </div>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" data-nav="home">Home</a>
+    <a href="login.html" data-nav="login">Login</a>
+    <a href="history.html" data-nav="history">History</a>
+    <a href="management.html" data-nav="management">Management</a>
+  </nav>
+</header>
+
+  <main class="page-container">
+    <section class="info-card">
+      <div class="page-heading">
+        <div>
+          <h2>Attendance</h2>
+          <p class="muted">Complete location, photo, and biometric steps before marking attendance.</p>
+        </div>
+        <div id="attendanceNotice" class="notice-box">Loading user details...</div>
+      </div>
+      <div class="user-summary-grid" id="attendanceUserSummary"></div>
+    </section>
+
+    <section class="workflow-grid">
+      <article class="action-card">
+        <h3>Step 1 — Enable Location</h3>
+        <p class="muted">Location verification is required before marking attendance.</p>
+        <button id="enableLocationBtn" class="btn btn-primary">Enable Location</button>
+        <div id="locationStatus" class="step-status">Location not verified.</div>
+        <div id="locationDetails" class="small-details"></div>
+      </article>
+
+      <article class="action-card">
+        <h3>Step 2 — Live Photo</h3>
+        <p class="muted">Capture a live photo using your device camera.</p>
+        <div class="button-row">
+          <button id="openCameraBtn" class="btn btn-secondary">Open Camera</button>
+          <button id="capturePhotoBtn" class="btn btn-primary" disabled>Capture Photo</button>
+        </div>
+        <video id="cameraPreview" class="media-preview hidden" autoplay playsinline></video>
+        <canvas id="photoCanvas" class="hidden"></canvas>
+        <img id="capturedPhoto" class="photo-preview hidden" alt="Captured photo preview" />
+        <div id="photoStatus" class="step-status">No photo captured yet.</div>
+      </article>
+
+      <article class="action-card">
+        <h3>Step 3 — Biometric Access</h3>
+        <p class="muted">Use supported browser biometric verification or the demo fallback.</p>
+        <button id="verifyBiometricBtn" class="btn btn-secondary">Verify Biometric</button>
+        <div id="biometricStatus" class="step-status">Biometric not verified.</div>
+        <div id="biometricNote" class="small-details"></div>
+      </article>
+    </section>
+
+    <section class="action-card final-card">
+      <h3>Step 4 — Mark Attendance</h3>
+      <p class="muted">This button becomes active only after all three steps are completed.</p>
+      <button id="markAttendanceBtn" class="btn btn-success" disabled>MARK ATTENDANCE</button>
+      <div id="attendanceResult" class="message" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+</html>

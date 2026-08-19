@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Attendance | Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+<body data-page="login">
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="logo-badge" aria-hidden="true">KCAS</div>
+      <div class="brand-text">
+        <div class="app-name">SMART ATTENDANCE</div>
+        <div class="college-name">KALAIMAGAL COLLEGE OF ARTS AND SCIENCE</div>
+        <div class="college-meta">Semmanar Koil • Phone: 9791-22519</div>
+      </div>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" data-nav="home">Home</a>
+    <a href="login.html" data-nav="login">Login</a>
+    <a href="history.html" data-nav="history">History</a>
+    <a href="management.html" data-nav="management">Management</a>
+  </nav>
+</header>
+
+  <main class="page-container center-layout">
+    <section class="auth-card">
+      <h2>Login</h2>
+      <p class="muted">Enter your username and password to continue.</p>
+      <div id="loginMessage" class="message" aria-live="polite"></div>
+      <form id="loginForm" class="form-grid">
+        <label>
+          Username
+          <input type="text" id="loginUsername" autocomplete="username" placeholder="Enter username" />
+        </label>
+        <label>
+          Password
+          <input type="password" id="loginPassword" autocomplete="current-password" placeholder="Enter password" />
+        </label>
+        <div class="button-row">
+          <button type="submit" class="btn btn-primary">LOGIN</button>
+          <a href="new-account.html" class="btn btn-secondary">CREATE NEW ACCOUNT</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
