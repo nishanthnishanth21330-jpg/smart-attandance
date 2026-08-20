@@ -106,9 +106,21 @@ async function getUserById(userId) {
   return snap.empty ? null : { id: snap.docs[0].id, ...snap.docs[0].data() };
 }
 async function getAttendanceForUser(userId) {
-  const q = query(collection(db, "attendance"), where("userId", "==", userId), orderBy("date", "desc"));
+  const q = query(
+    collection(db, "attendance"),
+    where("userId", "==", userId)
+  );
+
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+  const records = snap.docs.map(d => ({
+    id: d.id,
+    ...d.data()
+  }));
+
+  return records.sort((a, b) =>
+    String(b.date || "").localeCompare(String(a.date || ""))
+  );
 }
 function buildSummaryCard(label, value) {
   const div = document.createElement("div");
