@@ -510,69 +510,164 @@ async function initHistoryPage() {
     tbody.appendChild(tr);
   });
 }
-
 async function renderManagement(selectedUserId = null, filterText = "") {
   const tableBody = document.getElementById("usersTableBody");
   const selectedSummary = document.getElementById("selectedUserSummary");
   const selectedHistoryBody = document.getElementById("selectedUserHistoryBody");
   const selectedEmpty = document.getElementById("selectedUserEmpty");
+
   try {
+    // Get all users
     const users = await getAllUsers();
+
+    // Get all attendance records
     const allRecordsSnap = await getDocs(collection(db, "attendance"));
     const allRecords = allRecordsSnap.docs.map(d => d.data());
-    const filtered = users.filter(u => `${u.userId} ${u.username} ${u.name} ${u.department}`.toLowerCase().includes(filterText.toLowerCase()));
+
+    // Filter users
+    const filtered = users.filter(user =>
+      `${user.userId} ${user.username} ${user.name} ${user.department}`
+        .toLowerCase()
+        .includes(filterText.toLowerCase())
+    );
+
+    // Clear user list
     tableBody.innerHTML = "";
-    if (!filtered.length) tableBody.innerHTML = `<tr><td colspan="8">No matching users found.</td></tr>`;
+
+    // Show message if no users
+    if (!filtered.length) {
+      tableBody.innerHTML =
+        `<tr><td colspan="2">No matching users found.</td></tr>`;
+    }
+
+    // Show User ID + Username only
     filtered.forEach(user => {
-      const records = allRecords.filter(r => r.userId === user.userId);
-      const stats = computeStats(user, records);
-     const tr = document.createElement("tr");
-
-tr.innerHTML = `
-  <td data-label="User ID">
-    <button class="clickable-id" type="button" data-user-id="${user.userId}">
-      ${user.userId}
-    </button>
-  </td>
-
-  <td data-label="Username">
-    ${user.username}
-  </td>
-`;
-    });
-  let selected = selectedUserId
-  ? users.find(u => u.userId === selectedUserId)
-  : null;
-    if (!selected) { selectedSummary.innerHTML = ""; selectedHistoryBody.innerHTML = ""; selectedEmpty.classList.remove("hidden"); return; }
-    selectedEmpty.classList.add("hidden");
-    const records = allRecords.filter(r => r.userId === selected.userId);
-    const stats = computeStats(selected, records);
-    selectedSummary.innerHTML = "";
-    [["User ID",selected.userId],["Username",selected.username],["Name",selected.name],["Department",selected.department||"--"],["Total Days",stats.totalDays],["Present",stats.presentDays],["Absent",stats.absentDays],["Attendance %",`${stats.percentage}%`]].forEach(x=>selectedSummary.appendChild(buildSummaryCard(...x)));
-    selectedHistoryBody.innerHTML = "";
-    historyRowsForUser(selected, records).forEach(row => {
-      filtered.forEach(user => {
       const tr = document.createElement("tr");
-      
-    tr.innerHTML = `
-  <td data-label="User ID">
-    <button class="clickable-id" type="button" data-user-id="${user.userId}">
-      ${user.userId}
-    </button>
-  </td>
 
-  <td data-label="Username">
-    <button class="clickable-id" type="button" data-user-id="${user.userId}">
-      ${user.username}
-    </button>
-  </td>
-`;  tableBody.appendChild(tr);
+      tr.innerHTML = `
+        <td data-label="User ID">
+          <button
+            class="clickable-id"
+            type="button"
+            data-user-id="${user.userId}"
+          >
+            ${user.userId}
+          </button>
+        </td>
+
+        <td data-label="Username">
+          ${user.username}
+        </td>
+      `;
+
+      tableBody.appendChild(tr);
     });
-    document.querySelectorAll(".clickable-id").forEach(btn => btn.addEventListener("click", () => renderManagement(btn.dataset.userId, document.getElementById("userSearch").value)));
+
+    // When no user is selected, don't show history
+    if (!selectedUserId) {
+      selectedSummary.innerHTML = "";
+      selectedHistoryBody.innerHTML = "";
+      selectedEmpty.classList.remove("hidden");
+
+      document
+        .querySelectorAll(".clickable-id")
+        .forEach(btn => {
+          btn.addEventListener("click", () => {
+            renderManagement(
+              btn.dataset.userId,
+              document.getElementById("userSearch").value
+            );
+          });
+        });
+
+      return;
+    }
+
+    // Find selected user
+    const selected = users.find(
+      user => user.userId === selectedUserId
+    );
+
+    if (!selected) {
+      selectedSummary.innerHTML = "";
+      selectedHistoryBody.innerHTML = "";
+      selectedEmpty.classList.remove("hidden");
+      return;
+    }
+
+    // Hide "Select a user" message
+    selectedEmpty.classList.add("hidden");
+
+    // Selected user's attendance records
+    const records = allRecords.filter(
+      record => record.userId === selected.userId
+    );
+
+    const stats = computeStats(selected, records);
+
+    // Show selected user details
+    selectedSummary.innerHTML = "";
+
+    [
+      ["User ID", selected.userId],
+      ["Username", selected.username],
+      ["Name", selected.name],
+      ["Department", selected.department || "--"],
+      ["Total Days", stats.totalDays],
+      ["Present", stats.presentDays],
+      ["Absent", stats.absentDays],
+      ["Attendance %", `${stats.percentage}%`]
+    ].forEach(item => {
+      selectedSummary.appendChild(
+        buildSummaryCard(...item)
+      );
+    });
+
+    // Clear old history
+    selectedHistoryBody.innerHTML = "";
+
+    // Show selected user's history
+    historyRowsForUser(selected, records).forEach(row => {
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td data-label="Day">${row.day}</td>
+        <td data-label="Date">${row.date}</td>
+        <td data-label="Time">${row.time}</td>
+        <td data-label="Status">
+          <span class="status-badge ${
+            row.status === "Present"
+              ? "present"
+              : "absent"
+          }">
+            ${row.status}
+          </span>
+        </td>
+      `;
+
+      selectedHistoryBody.appendChild(tr);
+    });
+
+    // User ID click event
+    document
+      .querySelectorAll(".clickable-id")
+      .forEach(btn => {
+        btn.addEventListener("click", () => {
+          renderManagement(
+            btn.dataset.userId,
+            document.getElementById("userSearch").value
+          );
+        });
+      });
+
   } catch (err) {
-    tableBody.innerHTML = `<tr><td colspan="8">${safeError(err)}</td></tr>`;
+    console.error(err);
+
+    tableBody.innerHTML =
+      `<tr><td colspan="2">${safeError(err)}</td></tr>`;
   }
 }
+
 function initManagementPage() {
   const input = document.getElementById("userSearch");
   if (!input) return;
