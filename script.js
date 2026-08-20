@@ -540,7 +540,7 @@ tr.innerHTML = `
   </td>
 `;
     });
-   let selected = selectedUserId
+  let selected = selectedUserId
   ? users.find(u => u.userId === selectedUserId)
   : null;
     if (!selected) { selectedSummary.innerHTML = ""; selectedHistoryBody.innerHTML = ""; selectedEmpty.classList.remove("hidden"); return; }
@@ -552,12 +552,19 @@ tr.innerHTML = `
     selectedHistoryBody.innerHTML = "";
     historyRowsForUser(selected, records).forEach(row => {
       const tr = document.createElement("tr");
-     tr.innerHTML = `
-<td data-label="User">
-  <button class="clickable-id" type="button" data-user-id="${user.userId}">
-    ${user.userId} - ${user.username}
-  </button>
-</td>`;
+    tr.innerHTML = `
+  <td data-label="User ID">
+    <button class="clickable-id" type="button" data-user-id="${user.userId}">
+      ${user.userId}
+    </button>
+  </td>
+
+  <td data-label="Username">
+    <button class="clickable-id" type="button" data-user-id="${user.userId}">
+      ${user.username}
+    </button>
+  </td>
+`;
     });
     document.querySelectorAll(".clickable-id").forEach(btn => btn.addEventListener("click", () => renderManagement(btn.dataset.userId, document.getElementById("userSearch").value)));
   } catch (err) {
