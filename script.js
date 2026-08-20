@@ -526,9 +526,19 @@ async function renderManagement(selectedUserId = null, filterText = "") {
     filtered.forEach(user => {
       const records = allRecords.filter(r => r.userId === user.userId);
       const stats = computeStats(user, records);
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td data-label="User ID"><button class="clickable-id" type="button" data-user-id="${user.userId}">${user.userId}</button></td><td data-label="Username">${user.username}</td><td data-label="Name">${user.name}</td><td data-label="Department">${user.department || "--"}</td><td data-label="Total Days">${stats.totalDays}</td><td data-label="Present">${stats.presentDays}</td><td data-label="Absent">${stats.absentDays}</td><td data-label="Attendance %">${stats.percentage}%</td>`;
-      tableBody.appendChild(tr);
+     const tr = document.createElement("tr");
+
+tr.innerHTML = `
+  <td data-label="User ID">
+    <button class="clickable-id" type="button" data-user-id="${user.userId}">
+      ${user.userId}
+    </button>
+  </td>
+
+  <td data-label="Username">
+    ${user.username}
+  </td>
+`;
     });
     let selected = users.find(u => u.userId === selectedUserId) || filtered[0] || users[0];
     if (!selected) { selectedSummary.innerHTML = ""; selectedHistoryBody.innerHTML = ""; selectedEmpty.classList.remove("hidden"); return; }
