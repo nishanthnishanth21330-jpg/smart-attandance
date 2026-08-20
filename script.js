@@ -540,7 +540,9 @@ tr.innerHTML = `
   </td>
 `;
     });
-    let selected = users.find(u => u.userId === selectedUserId) || filtered[0] || users[0];
+   let selected = selectedUserId
+  ? users.find(u => u.userId === selectedUserId)
+  : null;
     if (!selected) { selectedSummary.innerHTML = ""; selectedHistoryBody.innerHTML = ""; selectedEmpty.classList.remove("hidden"); return; }
     selectedEmpty.classList.add("hidden");
     const records = allRecords.filter(r => r.userId === selected.userId);
@@ -550,8 +552,12 @@ tr.innerHTML = `
     selectedHistoryBody.innerHTML = "";
     historyRowsForUser(selected, records).forEach(row => {
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td data-label="Day">${row.day}</td><td data-label="Date">${row.date}</td><td data-label="Time">${row.time}</td><td data-label="Status"><span class="status-badge ${row.status === "Present" ? "present" : "absent"}">${row.status}</span></td>`;
-      selectedHistoryBody.appendChild(tr);
+     tr.innerHTML = `
+<td data-label="User">
+  <button class="clickable-id" type="button" data-user-id="${user.userId}">
+    ${user.userId} - ${user.username}
+  </button>
+</td>`;
     });
     document.querySelectorAll(".clickable-id").forEach(btn => btn.addEventListener("click", () => renderManagement(btn.dataset.userId, document.getElementById("userSearch").value)));
   } catch (err) {
