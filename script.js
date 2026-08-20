@@ -551,7 +551,9 @@ tr.innerHTML = `
     [["User ID",selected.userId],["Username",selected.username],["Name",selected.name],["Department",selected.department||"--"],["Total Days",stats.totalDays],["Present",stats.presentDays],["Absent",stats.absentDays],["Attendance %",`${stats.percentage}%`]].forEach(x=>selectedSummary.appendChild(buildSummaryCard(...x)));
     selectedHistoryBody.innerHTML = "";
     historyRowsForUser(selected, records).forEach(row => {
+      filtered.forEach(user => {
       const tr = document.createElement("tr");
+      
     tr.innerHTML = `
   <td data-label="User ID">
     <button class="clickable-id" type="button" data-user-id="${user.userId}">
@@ -564,7 +566,7 @@ tr.innerHTML = `
       ${user.username}
     </button>
   </td>
-`;
+`;  tableBody.appendChild(tr);
     });
     document.querySelectorAll(".clickable-id").forEach(btn => btn.addEventListener("click", () => renderManagement(btn.dataset.userId, document.getElementById("userSearch").value)));
   } catch (err) {
