@@ -350,8 +350,9 @@ input[readonly] {
   margin-top: 1.25rem;
   padding: 1.2rem;
   border-radius: 18px;
-  background: linear-gradient(180deg, #05f746, #05f72d);
-  border: 1px solid #cdeed8;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  color: #15803d;
   text-align: center;
 }
 .big-check {
